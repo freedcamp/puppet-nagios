@@ -86,6 +86,7 @@ class nagios::server (
   $plugin_dir           = $::nagios::params::plugin_dir,
   $plugin_nginx         = false,
   $plugin_xcache        = false,
+  $plugin_php_fpm        = false,
   $selinux              = $::selinux,
   # Original template entries
   $template_generic_contact = {},
@@ -155,7 +156,18 @@ class nagios::server (
       ensure => absent,
     }
   }
-
+  if $plugin_php_fpm {
+    file { "${plugin_dir}/check_php_fpm":
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => template('nagios/plugins/check_php_fpm'),
+    }
+  } else {
+    file { "${plugin_dir}/check_nginx":
+      ensure => absent,
+    }
+  }
   # Other packages
   # For the default email notifications to work
   ensure_packages(['mailx'])
