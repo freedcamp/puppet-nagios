@@ -429,7 +429,10 @@ class nagios::server (
   nagios_command { 'check_nginx':
     command_line => '$USER1$/check_nginx -H $HOSTADDRESS$ $ARG1$',
   }
-  # Custom NRPE-based commands
+  nagios_command { 'check_php_fpm':
+    command_line => '$USER1$/check_php_fpm -H $HOSTADDRESS$ $ARG1$',
+  }
+    # Custom NRPE-based commands
   nagios_command { 'check_nrpe_users':
     command_line => "${nrpe} -c check_users",
   }
@@ -473,7 +476,10 @@ class nagios::server (
   nagios_command { 'check_nrpe_conntrack':
     command_line => "${nrpe} -c check_conntrack",
   }
-  # Custom NRPE-based commands using custom plugins, conditionally enabled
+  nagios_command { 'check_nrpe_postfix':
+    command_line => "${nrpe} -c check_postfix",
+  }
+    # Custom NRPE-based commands using custom plugins, conditionally enabled
   nagios_command { 'check_nrpe_megaraid_sas':
     command_line => "${nrpe} -c check_megaraid_sas",
   }
