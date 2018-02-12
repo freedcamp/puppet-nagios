@@ -163,9 +163,19 @@ class nagios::server (
       mode    => '0755',
       content => template('nagios/plugins/check_php_fpm'),
     }
+    ensure_packages([
+        'perl-IO-Socket-SSL',
+        'perl-libwww-perl',
+    ])
   } else {
-    file { "${plugin_dir}/check_nginx":
+    file { "${plugin_dir}/check_php_fpm":
       ensure => absent,
+    }
+    package { 'perl-IO-Socket-SSL':
+        ensure => 'absent',
+    }
+        package { 'perl-libwww-perl':
+        ensure => 'absent',
     }
   }
   # Other packages
