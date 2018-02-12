@@ -38,6 +38,18 @@ class nagios::check::postfix (
   file { '/var/spool/postfix/deferred':
     mode        => '0744',
   }
+  file { '/var/spool/postfix/active':
+    mode        => '0744',
+  }
+  file { '/var/spool/postfix/bounce':
+    mode        => '0744',
+  }
+  file { '/var/spool/postfix/corrupt':
+    mode        => '0744',
+  }
+  file { '/var/spool/postfix/hold':
+    mode        => '0744',
+  }
   nagios::service { "check_postfix_${check_title}":
     ensure                   => $ensure,
     check_command            => "check_nrpe_postfix!${fullargs}",
