@@ -53,7 +53,7 @@ my $o_https=        undef;  # SSL (HTTPS) mode
 my $o_verify_ssl=   0;      # SSL verification, False by default
 my $o_cacert_file=  undef;  # Path to cacert.pem file
 
-my $TempPath = '/tmp/';     # temp path
+my $TempPath = '/var/log/nagios/php_fpm/';     # temp path
 my $MaxUptimeDif = 60*30;   # Maximum uptime difference (seconds), default 30 minutes
 
 my $phpfpm = 'PHP-FPM'; # Could be used to store version also
