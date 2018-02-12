@@ -177,6 +177,7 @@ sub check_options {
       'f'     => \$o_fastcgi,       'fastcgi'          => \$o_fastcgi,
       'H:s'   => \$o_host,          'hostname:s'       => \$o_host,
       's:s'   => \$o_servername,    'servername:s'     => \$o_servername,
+      'S:s'   => \$o_https,         'ssl:s'            => \$o_https,
       'u:s'   => \$o_url,           'url:s'            => \$o_url,
       'U:s'   => \$o_user,          'user:s'           => \$o_user,
       'P:s'   => \$o_pass,          'pass:s'           => \$o_pass,
