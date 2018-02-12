@@ -29,14 +29,14 @@ class nagios::check::proc_age (
   # Include defaults if no overrides in $args
   if !$args { $fullargs = '-w 20 -c 50'}
 
-  nagios::client::nrpe_file { 'check_postfix':
+  nagios::client::nrpe_file { 'check_proc_age':
     ensure => $ensure,
     args   => $fullargs,
   }
 
   nagios::service { "check_proc_age_${check_title}":
     ensure                   => $ensure,
-    check_command            => "check_proc_age!${args}",
+    check_command            => "check_proc_age!${fullargs}",
     service_description      => 'process age',
     servicegroups            => $servicegroups,
     check_period             => $check_period,
