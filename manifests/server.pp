@@ -491,7 +491,10 @@ class nagios::server (
   nagios_command { 'check_nrpe_postfix':
     command_line => "${nrpe} -c check_postfix",
   }
-    # Custom NRPE-based commands using custom plugins, conditionally enabled
+  nagios_command { 'check_nrpe_proc_age':
+    command_line => "${nrpe} -c check_proc_age",
+  }
+        # Custom NRPE-based commands using custom plugins, conditionally enabled
   nagios_command { 'check_nrpe_megaraid_sas':
     command_line => "${nrpe} -c check_megaraid_sas",
   }
