@@ -1,12 +1,12 @@
-# Create custom nagios_postfix fact
+# Create custom nagios_proc_age fact
 
 binaries = [
-  '/usr/sbin/postfix',
+  '/user/local/scripts/fc_reset_opcache.sh',
 ]
 
 binaries.each do |filename|
   if FileTest.exists?(filename)
-    Facter.add('nagios_postfix') { setcode { true } }
+    Facter.add('nagios_proc_age') { setcode { true } }
   end
 end
 
