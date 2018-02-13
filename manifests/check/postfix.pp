@@ -25,11 +25,11 @@ class nagios::check::postfix (
   #$fullargs = strip("${arg_h}${arg_p}${arg_u}-f ${args}")
 
   # Include defaults if no overrides in $args
-  if !$args { $args = '-w 20 -c 50'}
+  if !$args { $fullargs = '-w 20 -c 50'}  else { $fullargs = $args }
 
   nagios::client::nrpe_file { 'check_postfix':
     ensure => $ensure,
-    args   => $args,
+    args   => $fullargs,
   }
   file { '/var/spool/postfix':
     mode        => '0744',
@@ -51,7 +51,7 @@ class nagios::check::postfix (
   }
   nagios::service { "check_postfix_${check_title}":
     ensure                   => $ensure,
-    check_command            => "check_nrpe_postfix!${args}",
+    check_command            => "check_nrpe_postfix!${fullargs}",
     service_description      => 'postfix',
     servicegroups            => $servicegroups,
     check_period             => $check_period,

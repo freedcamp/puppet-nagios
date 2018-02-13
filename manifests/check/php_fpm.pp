@@ -14,7 +14,7 @@ class nagios::check::php_fpm (
 
   # https://github.com/regilero/check_phpfpm_status/blob/master/check_phpfpm_status.pl  --> check_phpfpm_status.pl -H 127.0.0.1 -s nagios.example.com -w 1,1,1 -c 0,2,2
   # Include defaults if no overrides in $args
-  if !$args { $args = '-p 8989 -u /fpm  -t 8 -w 1,-1,-1 -c 0,2,5'}
+  if !$args { $fullargs = '-p 8989 -u /fpm  -t 8 -w 1,-1,-1 -c 0,2,5'}  else { $fullargs = $args }
 
  # file { '/var/log/nagios/php_fpm':
  #   ensure  => directory,
@@ -32,7 +32,7 @@ class nagios::check::php_fpm (
 
   nagios::service { "check_php_fpm_${check_title}":
     ensure                   => $ensure,
-    check_command            => "check_php_fpm!${args}",
+    check_command            => "check_php_fpm!${fullargs}",
     service_description      => 'php_fpm',
     servicegroups            => $servicegroups,
     check_period             => $check_period,
