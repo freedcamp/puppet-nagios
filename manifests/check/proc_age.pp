@@ -31,16 +31,16 @@ class nagios::check::proc_age (
   # -c parameter : minimal elapsed time for status CRITICAL on NAGIOS
   # -w parameter : minimal elapsed time for status WARNING on NAGIOS
   # Include defaults if no overrides in $args
-  if !$args { $fullargs =  '-p fc_cron -c 10800 -w 3600'}
+  if !$args { $args =  '-p fc_cron -c 10800 -w 3600'}
 
   nagios::client::nrpe_file { 'check_proc_age':
     ensure => $ensure,
-    args   => $fullargs,
+    args   => $args,
   }
 
   nagios::service { "check_proc_age_${check_title}":
     ensure                   => $ensure,
-    check_command            => "check_nrpe_proc_age!${fullargs}",
+    check_command            => "check_nrpe_proc_age!${args}",
     service_description      => 'process age',
     servicegroups            => $servicegroups,
     check_period             => $check_period,
