@@ -2,7 +2,6 @@
 
 binaries = [
   '/usr/local/scripts/fc_cron_job.sh',
-   '/usr/local/scripts/fc_reset_opcache.sh',
 ]
 
 binaries.each do |filename|
