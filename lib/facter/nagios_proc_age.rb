@@ -1,7 +1,8 @@
 # Create custom nagios_proc_age fact
 
 binaries = [
-  '/user/local/scripts/fc_reset_opcache.sh',
+  '/usr/local/scripts/fc_cron_job.sh',
+   '/usr/local/scripts/fc_reset_opcache.sh',
 ]
 
 binaries.each do |filename|
