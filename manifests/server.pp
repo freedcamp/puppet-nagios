@@ -186,15 +186,9 @@ class nagios::server (
       mode    => '0755',
       content => template('nagios/plugins/check_apache_status'),
     }
-    ensure_packages([
-        'nagios-plugins-perl',
-    ])
   } else {
     file { "${plugin_dir}/check_apache_status":
       ensure => absent,
-    }
-    package { 'nagios-plugins-perl':
-        ensure => 'absent',
     }
   }
   # Other packages

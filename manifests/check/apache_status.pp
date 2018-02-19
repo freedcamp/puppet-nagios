@@ -11,6 +11,9 @@ class nagios::check::apache_status (
   $use                      = $::nagios::client::service_use,
 ) inherits ::nagios::client {
 
+  if $ensure != 'absent' {
+    Package <| tag == 'nagios-plugins-perl' |>
+  }
   # Include defaults if no overrides in $args
   if !$args { $fullargs = '-p 80 -t 15 -w 15 -c 3'}  else { $fullargs = $args }
 
