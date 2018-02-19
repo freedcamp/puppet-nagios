@@ -454,7 +454,10 @@ class nagios::server (
   nagios_command { 'check_php_fpm':
     command_line => '$USER1$/check_php_fpm -H $HOSTADDRESS$ $ARG1$',
   }
-    # Custom NRPE-based commands
+  nagios_command { 'check_apache_status':
+    command_line => '$USER1$/check_apache_status -H $HOSTADDRESS$ $ARG1$',
+  }
+        # Custom NRPE-based commands
   nagios_command { 'check_nrpe_users':
     command_line => "${nrpe} -c check_users",
   }

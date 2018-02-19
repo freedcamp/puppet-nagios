@@ -170,6 +170,7 @@ class nagios::client (
     if $::nagios_php_fpm {          class { '::nagios::check::php_fpm': } }
     if $::nagios_postfix {          class { '::nagios::check::postfix': } }
     if $::nagios_proc_age {         class { '::nagios::check::proc_age': } }
+    if $::nagios_apache_status {    class { '::nagios::check::apache_status': } }
     if $::nagios_mysqld {
       case $::operatingsystem {
         'RedHat', 'Fedora', 'CentOS', 'Scientific', 'Amazon': {

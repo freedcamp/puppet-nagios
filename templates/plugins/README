@@ -30,3 +30,5 @@ check_postfix : https://exchange.nagios.org/directory/Plugins/Email-and-Groupwar
 
 check_proc_age : https://exchange.nagios.org/directory/Plugins/Operating-Systems/Linux/check_proc_age-2Esh/details
 
+check_apache_status : https://exchange.nagios.org/directory/Plugins/Web-Servers/Apache/check_apachestatus-with-performance-data/details (based on https://exchange.nagios.org/directory/Plugins/Web-Servers/Apache/check_apachestatus/details)
+
