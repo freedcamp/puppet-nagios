@@ -86,8 +86,8 @@ class nagios::server (
   $plugin_dir           = $::nagios::params::plugin_dir,
   $plugin_nginx         = false,
   $plugin_xcache        = false,
-  $plugin_php_fpm        = false,
-  $plugin_apache_status        = false,
+  $plugin_php_fpm       = false,
+  $plugin_apache_status = false,
   $selinux              = $::selinux,
   # Original template entries
   $template_generic_contact = {},
