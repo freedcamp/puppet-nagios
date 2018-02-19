@@ -87,6 +87,7 @@ class nagios::server (
   $plugin_nginx         = false,
   $plugin_xcache        = false,
   $plugin_php_fpm        = false,
+  $plugin_apache_status        = false,
   $selinux              = $::selinux,
   # Original template entries
   $template_generic_contact = {},
@@ -178,6 +179,14 @@ class nagios::server (
         ensure => 'absent',
     }
   }
+    if $plugin_apache_status {
+      file { "${plugin_dir}/check_apache_status":
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        content => template('nagios/plugins/check_apache_status'),
+      }
+    }
   # Other packages
   # For the default email notifications to work
   ensure_packages(['mailx'])
