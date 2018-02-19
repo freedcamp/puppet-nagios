@@ -29,7 +29,7 @@ use Time::HiRes qw(gettimeofday tv_interval);
 
 # Nagios specific
 
-use lib "/usr/lib64/nagios/plugins";
+use lib qw(/usr/lib/nagios/plugins /usr/lib64/nagios/plugins); # possible pathes to your Nagios plugins and utils.pm
 use utils qw(%ERRORS $TIMEOUT);
 #my %ERRORS=('OK'=>0,'WARNING'=>1,'CRITICAL'=>2,'UNKNOWN'=>3,'DEPENDENT'=>4);
 
