@@ -87,6 +87,7 @@ class nagios::server (
   $plugin_nginx         = false,
   $plugin_xcache        = false,
   $plugin_php_fpm       = false,
+  $plugin_php_opcache       = false,
   $plugin_apache_status = false,
   $selinux              = $::selinux,
   # Original template entries
@@ -191,6 +192,18 @@ class nagios::server (
       ensure => absent,
     }
   }
+#  if $plugin_php_opcache {
+#    file { "${plugin_dir}/check_php_opcache":
+      #owner   => 'root',
+      #group   => 'root',
+      #mode    => '0755',
+      #content => template('nagios/plugins/check_php_opcache'),
+    #}
+  #} else {
+    #file { "${plugin_dir}/check_php_opcache":
+      #ensure => absent,
+    #}
+  #}
   # Other packages
   # For the default email notifications to work
   ensure_packages(['mailx'])
@@ -470,7 +483,7 @@ class nagios::server (
   nagios_command { 'check_apache_status':
     command_line => '$USER1$/check_apache_status -H $HOSTADDRESS$ $ARG1$',
   }
-        # Custom NRPE-based commands
+  # Custom NRPE-based commands
   nagios_command { 'check_nrpe_users':
     command_line => "${nrpe} -c check_users",
   }
@@ -520,7 +533,10 @@ class nagios::server (
   nagios_command { 'check_nrpe_proc_age':
     command_line => "${nrpe} -c check_proc_age",
   }
-        # Custom NRPE-based commands using custom plugins, conditionally enabled
+  nagios_command { 'check_nrpe_php_opcache':
+    command_line => "${nrpe} -c check_php_opcache",
+  }
+    # Custom NRPE-based commands using custom plugins, conditionally enabled
   nagios_command { 'check_nrpe_megaraid_sas':
     command_line => "${nrpe} -c check_megaraid_sas",
   }
