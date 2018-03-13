@@ -17,7 +17,7 @@ class nagios::check::php_opcache (
   }
 
   # Include defaults if no overrides in $args
-  if !$args { $fullargs = '--url http://127.0.0.1:8080/check_opcache.php --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2'}  else { $fullargs = $args }
+  if !$args { $fullargs = '--url http://127.0.0.1:8989/opcache/opcache.php --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2'}  else { $fullargs = $args }
 
   nagios::client::nrpe_file { 'check_php_opcache':
     ensure => $ensure,
