@@ -34,7 +34,7 @@ Usage: $PROGNAME --host 127.0.0.1 --script opcache.php [--port 8989] [ --keys %W
 Example: $PROGNAME --host 127.0.0.1 --script opcache.php --port 8989 --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2
 Options:
 --host or -H            The host where --page is located  file opcache_status.php
---port or -O            The port where --host is located 
+--port or -P            The port where --host is located 
 --script or -S            The page returning opcache stats    
 --keys or -K            Number of keys in cache compared to max_accelerated_files
                         You need to use percent for warning and critical thresholds
@@ -140,8 +140,6 @@ fi
 if [ -z "$PORT" ]
 then
 	PORT=80
-else
-	check_syntax $PORT "--port"
 fi
 
 if [ -z "$KEYS" ]
