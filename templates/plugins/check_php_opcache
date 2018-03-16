@@ -184,7 +184,7 @@ fi
 RESULTS=$(curl --silent $URL 2>/dev/null)
 if [ $? -ne 0 ]
 then
-	echo "UNKNOWN: The file opcache_status.php is not accessible"; exit $STATE_UNKNOWN;
+	echo "UNKNOWN: The file ${URL} is not accessible"; exit $STATE_UNKNOWN;
 fi
 
 # Parse results
