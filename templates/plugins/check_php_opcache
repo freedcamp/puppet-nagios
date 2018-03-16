@@ -24,7 +24,6 @@ STATE_OK=0
 STATE_OK=0
 STATE_WARNING=1
 STATE_CRITICAL=2
-PORT=80
 
 STATE=$STATE_OK
 
@@ -36,7 +35,7 @@ Example: $PROGNAME --host 127.0.0.1 --script opcache.php --port 8989 --keys 70:8
 Options:
 --host or -H            The host where --page is located  file opcache_status.php
 --port or -O            The port where --host is located 
---page or -P            The page returning opcache stats    
+--script or -S            The page returning opcache stats    
 --keys or -K            Number of keys in cache compared to max_accelerated_files
                         You need to use percent for warning and critical thresholds
                         Defaults: warning 80%, critical 90%
@@ -70,7 +69,7 @@ print_help() {
 
 while test -n "$1"; do
 	case "$1" in
-		--help|-?|-?)
+		--help)
 			print_help
 			exit $STATE_OK
 			;;
