@@ -168,6 +168,7 @@ class nagios::client (
     if $::nagios_httpd_nginx {      class { '::nagios::check::nginx': } }
     if $::nagios_pci_mptsas {       class { '::nagios::check::mptsas': } }
     if $::nagios_php_fpm {          class { '::nagios::check::php_fpm': } }
+    if $::nagios_php_opcache {      class { '::nagios::check::php_opcache': } }
     if $::nagios_postfix {          class { '::nagios::check::postfix': } }
     if $::nagios_proc_age {         class { '::nagios::check::proc_age': } }
     if $::nagios_apache_status {    class { '::nagios::check::apache_status': } }
