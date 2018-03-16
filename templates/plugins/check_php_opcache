@@ -24,16 +24,19 @@ STATE_OK=0
 STATE_OK=0
 STATE_WARNING=1
 STATE_CRITICAL=2
+PORT=80
 
 STATE=$STATE_OK
 
 
 print_usage() {
 	echo "
-Usage: $PROGNAME --url http://example.com/opcache_status.php [ --keys %W:%C ] [ --memory %W:%C ] [ --string-memory %W:%C ] [ --ratio %W:%C ] [ --restart W:C ]
-Example: $PROGNAME --url http://example.com/opcache_status.php --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2
+Usage: $PROGNAME --host 127.0.0.1 --script opcache.php [--port 8989] [ --keys %W:%C ] [ --memory %W:%C ] [ --string-memory %W:%C ] [ --ratio %W:%C ] [ --restart W:C ]
+Example: $PROGNAME --host 127.0.0.1 --script opcache.php --port 8989 --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2
 Options:
---url or -U            The url to the file opcache_status.php
+--host or -H            The host where --page is located  file opcache_status.php
+--port or -O            The port where --host is located 
+--page or -P            The page returning opcache stats    
 --keys or -K            Number of keys in cache compared to max_accelerated_files
                         You need to use percent for warning and critical thresholds
                         Defaults: warning 80%, critical 90%
@@ -67,7 +70,7 @@ print_help() {
 
 while test -n "$1"; do
 	case "$1" in
-		--help|-h|-H)
+		--help|-?|-?)
 			print_help
 			exit $STATE_OK
 			;;
@@ -75,8 +78,16 @@ while test -n "$1"; do
 			print_revision
 			exit $STATE_OK
 			;;
-		--url|-u|-U)
-			URL=$2
+		--host|-h|-H)
+			HOST=$2
+			shift
+			;;
+		--port|-p|-P)
+			PORT=$2
+			shift
+			;;
+		--script|-s|-S)
+			SCRIPT=$2
 			shift
 			;;
 		--keys|-k|-K)
@@ -115,13 +126,25 @@ check_syntax() {
 # Check for curl
 command -v curl > /dev/null 2>&1 || { echo "UNKNOWN: curl is not installed"; exit $STATE_UNKNOWN; }
 
-# Check for -H or --host which is the only required option
-if [ -z "$URL" ]
+
+if [ -z "$HOST" ]
 then
-	echo "UNKNOWN: You need to use --url"; exit $STATE_UNKNOWN;
+	echo "UNKNOWN: You need to use --host"; exit $STATE_UNKNOWN;
+fi
+
+if [ -z "$SCRIPT" ]
+then
+	echo "UNKNOWN: You need to use --script"; exit $STATE_UNKNOWN;
 fi
 
 # Check syntax's options and set default if not defined
+if [ -z "$PORT" ]
+then
+	PORT=80
+else
+	check_syntax $PORT "--port"
+fi
+
 if [ -z "$KEYS" ]
 then
 	KEYS=80:90
@@ -153,12 +176,12 @@ then
 else
 	check_syntax $RESTART "--restart"
 fi
-
+URL="http://${HOST}:${PORT}/${SCRIPT}"
 # Check if opcache_status.php is accessible
 STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" $URL 2>/dev/null)
 if [ "$STATUS_CODE" != "200" ]
 then
-	echo "UNKNOWN: The file opcache_status.php is not accessible"; exit $STATE_UNKNOWN;
+	echo "UNKNOWN: The file ${URL} is not accessible"; exit $STATE_UNKNOWN;
 fi
 
 RESULTS=$(curl --silent $URL 2>/dev/null)
