@@ -481,7 +481,7 @@ class nagios::server (
     command_line => '$USER1$/check_php_fpm -H $HOSTADDRESS$ $ARG1$',
   }
   nagios_command { 'check_php_opcache':
-    command_line => '$USER1$/check_php_opcache -H $HOSTADDRESS$ $ARG1$',
+    command_line => '$USER1$/check_php_opcache $ARG1$',
   }
     nagios_command { 'check_apache_status':
     command_line => '$USER1$/check_apache_status -H $HOSTADDRESS$ $ARG1$',

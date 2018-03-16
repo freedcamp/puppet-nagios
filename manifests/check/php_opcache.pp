@@ -12,7 +12,7 @@ class nagios::check::php_opcache (
 ) inherits ::nagios::client {
 
   # Include defaults if no overrides in $args
-  if !$args { $fullargs = '--url http://127.0.0.1:8989/opcache.php --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2'}  else { $fullargs = $args }
+  if !$args { $fullargs = '--url http://$HOSTADDRESS$:8989/opcache.php --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2'}  else { $fullargs = $args }
 
   nagios::service { "check_php_opcache_${check_title}":
     ensure                   => $ensure,
