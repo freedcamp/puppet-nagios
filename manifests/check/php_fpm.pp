@@ -16,20 +16,6 @@ class nagios::check::php_fpm (
   # Include defaults if no overrides in $args
   if !$args { $fullargs = '-p 8989 -u /fpm  -t 8 -w 1,-1,-1 -c 0,2,5'}  else { $fullargs = $args }
 
- # file { '/var/log/nagios/php_fpm':
- #   ensure  => directory,
- #   owner   => 'nagios',
- #   group   => 'nagios',
- #   mode    => '0777',
- #   seltype => 'nagios_log_t',
- # }
-
- # selinux::fcontext { 'nagios-php-fpm-log':
- #   seltype  => 'nagios_log_t',
- #   pathspec => '/var/log/nagios/php_fpm(/.*)?',
- # } ~>
- # selinux::exec_restorecon { '/var/log/nagios/php_fpm': }
-
   nagios::service { "check_php_fpm_${check_title}":
     ensure                   => $ensure,
     check_command            => "check_php_fpm!${fullargs}",

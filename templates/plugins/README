@@ -26,6 +26,8 @@ check_mountpoints : https://github.com/echocat/nagios-plugin-check_mountpoints
 
 check_php_fpm : https://github.com/regilero/check_phpfpm_status 
 
+check_php_opcache : https://github.com/nierdz/admintools/tree/master/nagios/plugins/opcache
+
 check_postfix : https://exchange.nagios.org/directory/Plugins/Email-and-Groupware/Postfix/Check-Postfix-Mailqueue-2/details
 
 check_proc_age : https://exchange.nagios.org/directory/Plugins/Operating-Systems/Linux/check_proc_age-2Esh/details

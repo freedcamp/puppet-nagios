@@ -11,22 +11,12 @@ class nagios::check::php_opcache (
   $use                      = $::nagios::client::service_use,
 ) inherits ::nagios::client {
 
-  nagios::client::nrpe_plugin { 'check_php_opcache':
-    ensure  => $ensure,
-    package => $package,
-  }
-
   # Include defaults if no overrides in $args
   if !$args { $fullargs = '--url http://127.0.0.1:8989/opcache/opcache.php --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2'}  else { $fullargs = $args }
 
-  nagios::client::nrpe_file { 'check_php_opcache':
-    ensure => $ensure,
-    args   => $fullargs,
-  }
-
   nagios::service { "check_php_opcache_${check_title}":
     ensure                   => $ensure,
-    check_command            => "check_nrpe_php_opcache!${fullargs}",
+    check_command            => "check_php_opcache!${fullargs}",
     service_description      => 'php_opcache',
     servicegroups            => $servicegroups,
     check_period             => $check_period,
