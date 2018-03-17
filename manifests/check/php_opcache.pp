@@ -11,8 +11,6 @@ class nagios::check::php_opcache (
   $use                      = $::nagios::client::service_use,
 ) inherits ::nagios::client {
 
-  ensure_packages(['bc'], {'ensure' => 'present'})
-
   # Include defaults if no overrides in $args
   if !$args { $fullargs = '--port 8989 --script opcache.php --keys 70:80 --memory 70:80 --string-memory 70:80 --ratio 5:10 --restart 1:2'}  else { $fullargs = $args }
 
