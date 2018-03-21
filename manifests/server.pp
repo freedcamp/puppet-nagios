@@ -204,7 +204,7 @@ class nagios::server (
     file { "${plugin_dir}/check_php_opcache":
       ensure => absent,
     }
-      ensure_packages(['bc'], {'ensure' => 'absent'})
+    ensure_packages(['bc'], {'ensure' => 'absent'})
   }
   # Other packages
   # For the default email notifications to work
