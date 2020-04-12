@@ -187,6 +187,9 @@ class nagios::server (
       mode    => '0755',
       content => template('nagios/plugins/check_apache_status'),
     }
+    ensure_packages([
+      'perl-Time-HiRes',
+    ])
   } else {
     file { "${plugin_dir}/check_apache_status":
       ensure => absent,
