@@ -5,7 +5,8 @@ class nagios::check::disk (
   # binfmt_misc : Denied by default, not useful to monitor
   # rpc_pipefs  : Denied by default, not useful to monitor
   # cgroup      : Denied by default, not useful to monitor
-  $original_args            = '-l -X binfmt_misc -X rpc_pipefs -X cgroup',
+  # tracefs     : Denied by default, not useful to monitor
+  $original_args            = '-l -X binfmt_misc -X rpc_pipefs -X cgroup -X tracefs',
   $check_title              = $::nagios::client::host_name,
   $servicegroups            = undef,
   $check_period             = $::nagios::client::service_check_period,
